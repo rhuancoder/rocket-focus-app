@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fokus/app/enums/timer_type.dart';
+import 'package:fokus/app/pages/timer_page.dart';
 import '../utils/app_config.dart';
 
 class HomePage extends StatelessWidget {
@@ -25,7 +27,13 @@ class HomePage extends StatelessWidget {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        // TODO: Implementar modo foco
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const TimerPage(timerType: TimerType.focus),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppConfig.buttonColor,
@@ -50,7 +58,14 @@ class HomePage extends StatelessWidget {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        // TODO: Implementar pausa curta
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TimerPage(
+                              timerType: TimerType.shortBreak,
+                            ),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppConfig.buttonColor,
@@ -75,7 +90,13 @@ class HomePage extends StatelessWidget {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        // TODO: Implementar pausa longa
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const TimerPage(timerType: TimerType.longBreak),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppConfig.buttonColor,
