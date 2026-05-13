@@ -27,12 +27,10 @@ class HomePage extends StatelessWidget {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushNamed(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const TimerPage(timerType: TimerType.focus),
-                          ),
+                          '/timer',
+                          arguments: TimerType.focus,
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -57,15 +55,20 @@ class HomePage extends StatelessWidget {
                     width: double.infinity,
                     height: 56,
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
+                      onPressed: () async {
+                        final result = await Navigator.pushNamed(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const TimerPage(
-                              timerType: TimerType.shortBreak,
-                            ),
-                          ),
+                          '/timer',
+                          arguments: TimerType.shortBreak,
                         );
+
+                        if (result != null) {
+                          showDialog(
+                            context: context,
+                            builder: (context) =>
+                                AlertDialog(title: Text(result.toString())),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppConfig.buttonColor,
@@ -90,12 +93,10 @@ class HomePage extends StatelessWidget {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushNamed(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const TimerPage(timerType: TimerType.longBreak),
-                          ),
+                          '/timer',
+                          arguments: TimerType.longBreak,
                         );
                       },
                       style: ElevatedButton.styleFrom(
