@@ -12,6 +12,8 @@ class TimerWidget extends StatefulWidget {
 }
 
 class _TimerWidgetState extends State<TimerWidget> {
+  bool isPlaying = false;
+
   @override
   void initState() {
     super.initState();
@@ -49,10 +51,12 @@ class _TimerWidgetState extends State<TimerWidget> {
             height: 56,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pop(context, '10 min');
+                setState(() {
+                  isPlaying = !isPlaying;
+                });
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppConfig.buttonColor,
+                backgroundColor: isPlaying ? Colors.red : AppConfig.buttonColor,
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 30,
@@ -65,10 +69,13 @@ class _TimerWidgetState extends State<TimerWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.play_arrow, color: AppConfig.backgroundColor),
+                  Icon(
+                    isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: AppConfig.backgroundColor,
+                  ),
                   const SizedBox(width: 10),
                   Text(
-                    "Iniciar",
+                    isPlaying ? "Pausar" : "Iniciar",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
