@@ -48,5 +48,36 @@ void main() {
       await tester.pumpAndSettle();
       verify(() => mockTimerViewModel.startTimer(any(), any())).called(1);
     });
+
+    testWidgets('pausa a contagem ao clicar em Pausar', (tester) async {
+      await tester.pumpWidget(createWidget());
+      final startButton = find.text('Iniciar');
+      await tester.tap(startButton);
+      await tester.pumpAndSettle();
+
+      tester.runAsync(() async {
+        final pauseButton = find.text('Pausar');
+        expect(pauseButton, findsOneWidget);
+
+        await tester.tap(pauseButton);
+        await tester.pumpAndSettle(Duration(seconds: 2));
+
+        expect(find.text("00:01"), findsOneWidget);
+      });
+    });
+
+    testWidgets('chama stopTime ao clicar em Parar', (tester) async {
+      await tester.pumpWidget(createWidget());
+      final startButton = find.text('Iniciar');
+      await tester.tap(startButton);
+      await tester.pumpAndSettle();
+
+      tester.runAsync(() async {
+        await tester.tap(find.text('Parar'));
+        await tester.pumpAndSettle();
+
+        verify(() => mockTimerViewModel.stopTime()).called(1);
+      });
+    });
   });
 }
